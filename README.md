@@ -50,16 +50,20 @@ Code for my work "Joint Multi-Person Body Detection and Orientation Estimation v
 * **Pretrained weights:** 
   ```
   # For YOLOv5 weights, please download the version 5.0 that we have used
-  yolov5s6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5s6.pt]
-  yolov5m6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5m6.pt]
-  yolov5l6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5l6.pt]
+  yolov5s6.pt
+  [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5s6.pt]
+  yolov5m6.pt
+  [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5m6.pt]
+  yolov5l6.pt
+  [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5l6.pt]
   
-  # For JointBDOE weights, we currently release the yolov5m6-based one. Below are its evaluation results
+  # For JointBDOE weights, we currently release the yolov5m6-based model. Below are its evaluation results
   # Left bbox number (MEBOW): 5508 / 5536;
   # [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 11.9071,46.4052,83.0065,89.724,92.8649,95.4248
   # Left bbox number (FULL): 8844 / 9059;
   # [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 18.7632,39.8349,73.5414,81.3659,85.5043,89.5183
-  JointBDOE-yolov5m6 [./weights/coco_m_1024_e500_t020_w005_last.pt]
+  coco_m_1024_e500_t020_w005_last.pt
+  [https://drive.google.com/file/d/1M3K2cpCA4_h5GKABHPy7Bs7VvWX9lFwy/view?usp=sharing]
   ```
   
 * **Training:**
