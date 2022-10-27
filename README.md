@@ -47,6 +47,17 @@ Code for my work "Joint Multi-Person Body Detection and Orientation Estimation v
 
 * **Yaml:** Please refer the [JointBDOE_weaklabel_coco.yaml](./data/JointBDOE_weaklabel_coco.yaml) file to config your own .yaml file
 
+* **Pretrained weights:** 
+  ```
+  # For YOLOv5 weights, please download the version 5.0 that we have used
+  yolov5s6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5s6.pt]
+  yolov5m6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5m6.pt]
+  yolov5l6.pt [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5l6.pt]
+  
+  # For JointBDOE weights, we currently release the yolov5m6-based one
+  JointBDOE-yolov5m6 [./weights/coco_m_1024_e500_t020_w005_last.pt]
+  ```
+  
 * **Training:**
 
   Training `yolov5s6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 180
@@ -88,7 +99,6 @@ Code for my work "Joint Multi-Person Body Detection and Orientation Estimation v
   python demos/image.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
       --device 3 --img-path test_imgs/CrowdHuman/ --conf-thres 0.3 --iou-thres 0.5
   ```
-  
   
 ## References
 
