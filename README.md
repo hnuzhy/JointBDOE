@@ -66,23 +66,32 @@ Code for my work "Joint Multi-Person Body Detection and Orientation Estimation v
 
   Training `yolov5s6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 180
   ```bash
-  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
-      --img 1024 --batch 180 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
-      --val-scales 1 --val-flips -1 --weights weights/yolov5s6.pt --project runs/JointBDOE \
+  python -m torch.distributed.launch --nproc_per_node 4 \
+      train.py --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 180 --epochs 500 \
+      --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 \
+      --weights weights/yolov5s6.pt --project runs/JointBDOE \
       --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_s_1024_e500_t020_w005
   ```
   Training `yolov5m6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 96
   ```bash
-  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
-      --img 1024 --batch 96 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
-      --val-scales 1 --val-flips -1 --weights weights/yolov5m6.pt --project runs/JointBDOE \
+  python -m torch.distributed.launch --nproc_per_node 4 \
+      train.py --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 96 --epochs 500 \
+      --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 \
+      --weights weights/yolov5m6.pt --project runs/JointBDOE \
       --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_m_1024_e500_t020_w005
   ```
   Training `yolov5l6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 48
   ```bash
-  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
-      --img 1024 --batch 48 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
-      --val-scales 1 --val-flips -1 --weights weights/yolov5l6.pt --project runs/JointBDOE \
+  python -m torch.distributed.launch --nproc_per_node 4 train.py \
+      --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 48 --epochs 500 \
+      --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 \
+      --weights weights/yolov5l6.pt --project runs/JointBDOE \
       --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_l_1024_e500_t020_w005
   ```
   
