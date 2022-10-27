@@ -16,28 +16,80 @@ Code for my work "Joint Multi-Person Body Detection and Orientation Estimation v
 
 ## Installation
 
-**Environment:** Anaconda, Python3.8, PyTorch1.10.0(CUDA11.2), wandb
+* **Environment:** Anaconda, Python3.8, PyTorch1.10.0(CUDA11.2), wandb
 
-```bash
-$ git clone https://github.com/hnuzhy/JointBDOE.git
-$ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+  ```bash
+  $ git clone https://github.com/hnuzhy/JointBDOE.git
+  $ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-# Codes are only evaluated on GTX3090+CUDA11.2+PyTorch1.10.0. You can follow the same config if needed
-# [method 1][directly install from the official website][may slow]
-$ pip3 install torch==1.10.0+cu111 torchvision==0.11.1+cu111 torchaudio==0.10.0+cu111 \
-  -f https://download.pytorch.org/whl/cu111/torch_stable.html
-  
-# [method 2]download from the official website and install offline][faster]
-$ wget https://download.pytorch.org/whl/cu111/torch-1.10.0%2Bcu111-cp38-cp38-linux_x86_64.whl
-$ wget https://download.pytorch.org/whl/cu111/torchvision-0.11.1%2Bcu111-cp38-cp38-linux_x86_64.whl
-$ wget https://download.pytorch.org/whl/cu111/torchaudio-0.10.0%2Bcu111-cp38-cp38-linux_x86_64.whl
-$ pip3 install torch*.whl
-```
+  # Codes are only evaluated on GTX3090 + CUDA11.2 + PyTorch1.10.0.
+  $ pip3 install torch==1.10.0+cu111 torchvision==0.11.1+cu111 torchaudio==0.10.0+cu111 \
+    -f https://download.pytorch.org/whl/cu111/torch_stable.html
+  ```
 
 ## Dataset Preparing
 
+* **Original MEBOW (CVPR2020) for singel-person BOE:** Monocular Estimation of Body Orientation In the Wild [[project link](https://chenyanwu.github.io/MEBOW/)]. For the images, please download from [MS-COCO](https://cocodataset.org/#download). For its annotation, you can email [czw390@psu.edu](czw390@psu.edu) to get access to human body orientation annotation. More details can be found in their official [[code in github](https://github.com/ChenyanWu/MEBOW)]
+
+* **Our Full MEBOW for multi-person BOE:** After downloading both the original MEBOW annotations (`train_hoe.json` and `val_hoe.json`) and the COCO person annotations (`person_keypoints_train2017.json` and `person_keypoints_val2017.json`), also all COCO images labeled by MEBOW, you can follow steps below to generate annotations (`JointBDOE_coco_weaklabel_train.json` and `JointBDOE_coco_weaklabel_val.json`) for full MEBOW with weak labels.
+  ```bash
+  # install and config the MEBOW code project
+  $ git clone https://github.com/ChenyanWu/MEBOW
+
+  # copy our generating file single_pred.py under ./demos/ to the MEBOW code project ./tools/
+  $ python tools/single_pred.py --cfg experiments/coco/segm-4_lr1e-3.yaml
+
+  # more details can be found in our single_pred.py file
+  $ cat demos/single_pred.py 
+  ```
 
 ## Training and Testing
 
+* **Yaml:** Please refer the [JointBDOE_weaklabel_coco.yaml](./data/JointBDOE_weaklabel_coco.yaml) file to config your own .yaml file
 
+* **Training:**
+
+  Training `yolov5s6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 180
+  ```bash
+  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 180 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 --weights weights/yolov5s6.pt --project runs/JointBDOE \
+      --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_s_1024_e500_t020_w005
+  ```
+  Training `yolov5m6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 96
+  ```bash
+  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 96 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 --weights weights/yolov5m6.pt --project runs/JointBDOE \
+      --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_m_1024_e500_t020_w005
+  ```
+  Training `yolov5l6` based JointBDOE model 500 epochs on 4 GTX-3090 GPUs with batchsize 48
+  ```bash
+  python -m torch.distributed.launch --nproc_per_node 4 train.py --workers 20 --device 0,1,2,4 \
+      --img 1024 --batch 48 --epochs 500 --data data/JointBDOE_weaklabel_coco.yaml --hyp data/hyp-p6.yaml \
+      --val-scales 1 --val-flips -1 --weights weights/yolov5l6.pt --project runs/JointBDOE \
+      --mse_conf_thre 0.20 --mse_loss_w 0.05 --name coco_l_1024_e500_t020_w005
+  ```
+  
+* **Testing:**
+
+  For evaluation on the val-set of full MEBOW, e.g. testing the trained `coco_s_1024_e500_t020_w005` project.
+  ```bash
+  python val.py --rect --data data/JointBDOE_weaklabel_coco.yaml --img 1024 \
+      --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt --batch-size 16 --device 3
+  ```
+  For testing one single image with multi-persons.
+  ```bash
+  # [COCO][JointBDOE - YOLOv5S] 
+  python demos/image.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
+      --device 3 --img-path test_imgs/COCO/ --conf-thres 0.3 --iou-thres 0.5 --gt-show --thickness 1
+      
+  # [CrowdHuman][JointBDOE - YOLOv5S] 
+  python demos/image.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
+      --device 3 --img-path test_imgs/CrowdHuman/ --conf-thres 0.3 --iou-thres 0.5
+  ```
+  
+  
 ## References
+
+* [YOLOv5 🚀 in PyTorch > ONNX > CoreML > TFLite](https://github.com/ultralytics/yolov5)
