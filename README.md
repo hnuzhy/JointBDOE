@@ -121,3 +121,24 @@ Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation 
 ## References
 
 * [YOLOv5 🚀 in PyTorch > ONNX > CoreML > TFLite](https://github.com/ultralytics/yolov5)
+* [Code for "MEBOW: Monocular Estimation of Body Orientation In the Wild"](https://github.com/ChenyanWu/MEBOW)
+
+### Citation
+
+If you use our dataset or models in your research, please cite with:
+```
+@inproceedings{wu2020mebow,
+  title={MEBOW: Monocular Estimation of Body Orientation In the Wild},
+  author={Wu, Chenyan and Chen, Yukun and Luo, Jiajia and Su, Che-Chun and Dawane, Anuja and Hanzra, Bikramjot and Deng, Zhuo and Liu, Bilan and Wang, James Z and Kuo, Cheng-hao},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={3451--3461},
+  year={2020}
+}
+
+@article{zhou2022joint,
+  title={Joint Multi-Person Body Detection and Orientation Estimation via One Unified Embedding},
+  author={Zhou, Huayi and Jiang, Fei and Si, Jiaxin and Lu, Hongtao},
+  journal={arXiv preprint arXiv.2210.15586},
+  year={2022}
+}
+```
