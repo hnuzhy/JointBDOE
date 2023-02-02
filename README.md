@@ -123,7 +123,7 @@ Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation 
 * [YOLOv5 🚀 in PyTorch > ONNX > CoreML > TFLite](https://github.com/ultralytics/yolov5)
 * [Code for "MEBOW: Monocular Estimation of Body Orientation In the Wild"](https://github.com/ChenyanWu/MEBOW)
 
-### Citation
+## Citation
 
 If you use our dataset or models in your research, please cite with:
 ```
