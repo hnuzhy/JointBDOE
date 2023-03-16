@@ -1,6 +1,9 @@
 # JointBDOE
 Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation via One Unified Embedding](https://arxiv.org/abs/2210.15586)
 
+* [**2023-03-16**] We released our JointBDOE-S/M/L pretrained models on COCO-MEBOW in [Hugging Face](https://huggingface.co/HoyerChou/JointBDOE). Please follow the [[Training and Testing](#training-and-testing)] section to test on your own images/videos.
+
+
 **Abstract:** Human body orientation estimation (HBOE) is widely applied into various applications, including robotics, surveillance, pedestrian analysis and autonomous driving. Although many approaches have been addressing the HBOE problem from specific under-controlled scenes to challenging in-the-wild environments, they assume human instances are already detected and take a well cropped sub-image as the input. This setting is less efficient and prone to errors in real application, such as crowds of people. In the paper, we propose a single-stage end-to-end trainable framework for tackling the HBOE problem with multi-persons. By integrating the prediction of bounding boxes and direction angles in one embedding, our method can jointly estimate the location and orientation of all bodies in one image directly. Our key idea is to integrate the HBOE task into the multi-scale anchor channel predictions of persons for concurrently benefiting from engaged intermediate features. Therefore, our approach can naturally adapt to difficult instances involving low resolution and occlusion as in object detection. We validated the efficiency and effectiveness of our method in the recently presented benchmark MEBOW with extensive experiments. Besides, we completed ambiguous instances ignored by the MEBOW dataset, and provided corresponding weak body-orientation labels to keep the integrity and consistency of it for supporting studies toward multi-persons.
 
 <table>
@@ -57,14 +60,26 @@ Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation 
   yolov5l6.pt
   [https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5l6.pt]
   
-  # For JointBDOE weights, we currently release the yolov5m6-based model.
-  coco_m_1024_e500_t020_w005_last.pt
-  [https://drive.google.com/file/d/1M3K2cpCA4_h5GKABHPy7Bs7VvWX9lFwy/view?usp=sharing]
+  # For JointBDOE weights, we currently release all the yolov5-based models in Hugging Face.
   # Below are its evaluation results
+  
+  coco_s_1024_e500_t020_w005_best.pt
+  Left bbox number (MEBOW): 5511 / 5536;
+  [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 13.1296,44.0755,79.8948,88.0784,91.7982,94.2297
+  Left bbox number (FULL): 8821 / 9059;
+  [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 20.6699,37.048,69.6973,78.9593,83.5053,87.8925
+
+  coco_m_1024_e500_t020_w005_best.pt
   Left bbox number (MEBOW): 5508 / 5536;
   [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 11.9071,46.4052,83.0065,89.724,92.8649,95.4248
   Left bbox number (FULL): 8844 / 9059;
   [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 18.7632,39.8349,73.5414,81.3659,85.5043,89.5183
+  
+  coco_l_1024_e500_t020_w005_best.pt
+  Left bbox number (MEBOW): 5506 / 5536;
+  [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 11.2068,47.53,83.3636,90.5013,93.7704,96.0407
+  Left bbox number (FULL): 8839 / 9059;
+  [WMAE,Acc-05,Acc-15,Acc-22.5,Acc-30,Acc-45]: 17.8479,40.7512,74.4315,82.2944,86.5369,90.4175
   ```
   
 * **Training:**
