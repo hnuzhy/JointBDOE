@@ -122,7 +122,7 @@ Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation 
   python val.py --rect --data data/JointBDOE_weaklabel_coco.yaml --img 1024 \
       --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt --batch-size 16 --device 3
   ```
-  For testing one single image with multi-persons.
+  For testing one single image / video with multi-persons.
   ```bash
   # [COCO][JointBDOE - YOLOv5S] 
   python demos/image.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
@@ -131,6 +131,11 @@ Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation 
   # [CrowdHuman][JointBDOE - YOLOv5S] 
   python demos/image.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
       --device 3 --img-path test_imgs/CrowdHuman/ --conf-thres 0.3 --iou-thres 0.5
+      
+  # [JointBDOE - YOLOv5S][Inference on video]
+  python demos/video.py --weights runs/JointBDOE/coco_s_1024_e500_t020_w005/weights/best.pt \
+    --video-path test/video/path/file.mp4 --conf-thres 0.1 --iou-thres 0.3 \
+    --start 0 --alpha 0.2 --device 3 --save-size 540
   ```
   
 ## References
