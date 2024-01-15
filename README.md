@@ -1,6 +1,7 @@
 # JointBDOE
 Code for my paper [Joint Multi-Person Body Detection and Orientation Estimation via One Unified Embedding](https://arxiv.org/abs/2210.15586)
 
+* [**2024-01-15**] Recently, I found a paper published in CVPR'2020 with title [`Cylindrical Convolutional Networks for Joint Object Detection and Viewpoint Estimation`](https://openaccess.thecvf.com/content_CVPR_2020/html/Joung_Cylindrical_Convolutional_Networks_for_Joint_Object_Detection_and_Viewpoint_Estimation_CVPR_2020_paper.html) may have done a similar work with this project.
 * [**2023-03-16**] We released our JointBDOE-S/M/L pretrained models on COCO-MEBOW in [Hugging Face](https://huggingface.co/HoyerChou/JointBDOE). Please follow the [[Training and Testing](#training-and-testing)] section to test on your own images/videos.
 
 
